@@ -14,6 +14,7 @@ function p = gaussian_pos_prob(X, Mu, Sigma, Phi)
 %   Outputs:
 %       'p'     - N-by-K matrix, posterior probability of N data points
 %                   with in K Gaussian distributions.
+%   Hint：可以查看matlab下内置函数mvnpdf
 
 N = size(X, 2);
 K = length(Phi);
@@ -27,7 +28,7 @@ for i=1:N
         sigma = Sigma(:,:,j);
         mu = Mu(:,j);
         % computer the likehood according to the formula
-        likehood = 1.0 / ( (2*pi)^(sigma_size(1)/2) * sqrt(det(sigma)) * exp(-0.5*(x-mu)'*pinv(sigma)*(x-mu)) );
+        likehood = 1.0 / ( (2*pi)^(sigma_size(1)/2) * sqrt(det(sigma)) ) * exp(-0.5*(x-mu)'*pinv(sigma)*(x-mu));
         % calculate each feature's posterior
         posterior(j) = Phi(j) * likehood;
     end
