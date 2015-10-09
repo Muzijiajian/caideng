@@ -40,7 +40,5 @@ fprintf('Optimal Bayes decision rule''s test error is %d.\n',testerror_part2);
 risk = [0, 1; 2, 0];
 %TODO
 %get the minimal risk using optimal bayes decision rule and risk weights
-R1 = risk(1,1) * p(1,:) + risk(1,2) * p(2, :);
-R2 = risk(2,1) * p(1,:) + risk(2,2) * p(2, :);
-risk_min = sum( (R1<R2) .* R1 + (R1>R2) .* R2 );
-fprintf('Optimal Bayes decision rule''s minimal is %d.\n',risk_min');
+R1 = sum( risk(1,1) * p(1,:) + risk(1,2) * p(2, :) );
+R2 = sum( risk(2,1) * p(1,:) + risk(2,2) * p(2, :);
