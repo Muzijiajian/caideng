@@ -10,15 +10,12 @@ function w = linear_regression(X, y,num_iters)
 % YOUR CODE HERE
 w = zeros(size(X,1),1);
 m = length(y);  % 获取样本总数
-alpha = 0.1;    % 作为梯度下降的学习速率
 tmpcost = 0;
 minCost = Inf;
 for i=1:num_iters
     tmpcost = calcuCost(X,y,w);
-    h = w'*X;
-    diff_v = h-y;
-    w_change = 1/m*alpha*(diff_v*X');
-    w = w - w_change';
+    grad = 1/m .* (sigmod(X'*w)' - y) * X';
+    w = w - grad';
     if tmpcost < minCost
         minCost = tmpcost;
     else

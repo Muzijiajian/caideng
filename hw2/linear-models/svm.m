@@ -9,6 +9,34 @@ function [w, num] = svm(X, y)
 %
 
 % YOUR CODE HERE
-
-
+[m n] = size(X);
+H = 1/2*eye(m);
+% 常数项为0
+f = zeros(size(H,1),1);
+A = ( [y;y] .* X )';
+b = -ones(n,1);
+[w,~] = quadprog(H,f,A,b);
+w = [w;ones(1,1)];
+dis = (y .* (w(1:end-1,1)'*X) ) / norm(w(1:end-1,1));
+% 从正的和负的里面找到距离相对较大的一个作为支持向量的最低标准
+value1=inf;
+value2=inf;
+for i=1:length(dis)
+    if dis(i)>0  
+        if dis(i) < value1
+            value1 = dis(i);
+            continue;
+        end
+    else
+        if (-dis(i)) < value2
+            value2 = -dis(i);
+            continue;
+        end
+    end
+end
+if value1 >= value2
+    num = sum( sort(abs(dis)) <=  value1);
+else
+    num = sum( sort(abs(dis)) <=  value2);
+end
 end
