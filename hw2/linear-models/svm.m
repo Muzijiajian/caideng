@@ -9,15 +9,15 @@ function [w, num] = svm(X, y)
 %
 
 % YOUR CODE HERE
-[m n] = size(X);
-H = 1/2*eye(m);
+n = length(y);
+X = [ones(1,n);X];
+H = 1/2*eye(size(X,1));
 % 常数项为0
 f = zeros(size(H,1),1);
-A = ( [y;y] .* X )';
-b = -ones(n,1);
+A = ( [y;y;y] .* X )';
+b = ones(n,1);
 [w,~] = quadprog(H,f,A,b);
-w = [w;ones(1,1)];
-dis = (y .* (w(1:end-1,1)'*X) ) / norm(w(1:end-1,1));
+dis = (y .* (w'*X) ) / norm(w);
 % 从正的和负的里面找到距离相对较大的一个作为支持向量的最低标准
 value1=inf;
 value2=inf;
