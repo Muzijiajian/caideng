@@ -11,6 +11,7 @@ function l = likelihood(x)
 [C, N] = size(x);
 l = zeros(C, N);
 %TODO
+% l = x ./ repmat(sum(x, 2), [1, size(x,2)]);
 %算的是对每一个feature而言(如颜色)，每一个class所占的比例(如RGB)
 total = sum(x,2);
 for i=1:C
